@@ -1,221 +1,171 @@
-// Fetch JSON data from URL and console log it
+// Set csv file path
+let csvFile = "Data/final_data.csv";
 
-// let url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json";
-
-let bitcoin_file = "../../Data/Bitcoin.json"
-
-let ethereum_file = "../../Data/Ethereum.json"
-
-let tether_file = "../../Data/Tether.json"
-
-d3.json(bitcoin_file).then(function(data) {
-  console.log("***data***")
-  console.log(data);
-  // console.log(data.Price);
+// Read in the data
+d3.csv(csvFile).then(function(data){
+    console.log(data);
 });
 
-d3.json(ethereum_file).then(function(data) {
-  console.log("***data***")
-  console.log(data);
-});
+function buildChart (sample) {
+    d3.csv(csvFile).then((data) => {
 
-d3.json(tether_file).then(function(data) {
-  console.log("***data***")
-  console.log(data);
-});
+        // Create empty lists to hold all dates and prices
+        let PriceList = [];
+        let dateList = [];
 
-let selector = d3.select("#selDataset");
+        // Loop through all rows to pupulate lists created above
+        for (let i =0; i < data.length; i++) {
+            let dataResult = data[i];
 
-d3.json(bitcoin_file).then(function(data) {
-  console.log("data")
-  console.log(data);
+            // Populate dateList with dates from all rows
+            dateList.push(dataResult.Date);
 
-  let priceBitcoin = data.Price
-  console.log("price");
-  console.log(priceBitcoin);
+            // loop through different currency types found in csv file and populate priceList
+            if (dataResult.Currency_Type == sample) {
+                PriceList.push(parseFloat(dataResult.Price));
+            } else if (dataResult.Currency_Type == sample) {
+                PriceList.push(parseFloat(dataResult.Price));
+            } else if (dataResult.Currency_Type == sample) {
+                PriceList.push(parseFloat(dataResult.Price));
+            }
 
-  let volumeBitcoin = data.Volume
-  console.log("volume");
-  console.log(volumeBitcoin);
+        };
 
-  let percent_changeBitcoin = data.Percent_change
-  console.log("percent_change");
-  console.log(percent_changeBitcoin);
 
-  let currencyBitcoin = data.Currency_Type
-  console.log("currencyBitcoin");
-  console.log(currencyBitcoin);
-  currencyBitcoin.forEach((coin) => {
-    selector.append("option").text(coin).property("value", coin);
+    // Define x & y values
+        let yTicks = PriceList;
+        let xValues = dateList;
+
+    // Set up line chart
+        let barChart = {
+            y: yTicks,
+            x: xValues,
+            type: "scatter"
+        };
+
+    // Set up layout
+        let layout = {
+            title: "Crypto Currency Prices"
+        };
+
+    // Call Plotly to plot above chart
+        Plotly.newPlot("line", [barChart], layout);
+
+
     });
-
-  cryptoData(currencyBitcoin);
-
-  buildCharts(currencyBitcoin);
-
-});
-
-function cryptoData(name) {
-    d3.json(bitcoin_file).then(function(data) {
-      let priceBitcoin = data.Price
-      console.log("price");
-      console.log(priceBitcoin);
-
-      let volumeBitcoin = data.Volume
-      console.log("volume");
-      console.log(volumeBitcoin);
-
-      let percent_changeBitcoin = data.Percent_change
-      console.log("percent_change");
-      console.log(percent_changeBitcoin);
-
-      // resultArray = priceBitcoin.filter(sampleObj => sampleObj.id == name);
-      // console.log("resultArray");
-      // console.log(resultArray);
-      
-      // result = resultArray[0];
-      
-      let PANEL = d3.select("#sample-metadata");
-              
-      PANEL.html("");
-      
-      Object.entries(priceBitcoin).forEach(([key, value]) => {
-      PANEL.append("h6").text(`${key.toUpperCase()}: ${value}`);
-      });
-    })
 
 };
 
-//         resultArray = metadata.filter(sampleObj => sampleObj.id == name);
-//         console.log("resultArray");
-//         console.log(resultArray);
 
-//         result = resultArray[0];
+// Function for the information box box
 
-//         let PANEL = d3.select("#sample-metadata");
-        
-//         PANEL.html("");
+function infoBox (sample) {
+    d3.csv(csvFile).then((data) => {
+        // Create empty lists to hold prices, volumes, high prices, and low prices
+        let PriceList = [];
+        let VolumeList = [];
+        let HighList = [];
+        let LowList = [];
 
-//         Object.entries(result).forEach(([key, value]) => {
-//             PANEL.append("h6").text(`${key.toUpperCase()}: ${value}`);
-//           });
-      
-//     })
-// }
+        // Loop through all rows to pupulate lists created above
+        for (let i =0; i < data.length; i++) {
+            let dataResult = data[i];
+    
+            // Loop through all rows of the csv file to populate lists created above
+            if (dataResult.Currency_Type == sample) {
+                PriceList.push(parseFloat(dataResult.Price))  & VolumeList.push(parseFloat(dataResult.Volume)) & HighList.push(parseFloat(dataResult.High)) & LowList.push(parseFloat(dataResult.Low));
+            } else if (dataResult.Currency_Type == sample) {
+                PriceList.push(parseFloat(dataResult.Price))  & VolumeList.push(parseFloat(dataResult.Volume)) & HighList.push(parseFloat(dataResult.High)) & LowList.push(parseFloat(dataResult.Low));
+            } else if (dataResult.Currency_Type == sample) {
+                PriceList.push(parseFloat(dataResult.Price))  & VolumeList.push(parseFloat(dataResult.Volume)) & HighList.push(parseFloat(dataResult.High)) & LowList.push(parseFloat(dataResult.Low));
+            }
+    
+        };
 
-function buildCharts(name) {
-    d3.json(bitcoin_file).then(function(data) {
-      let priceBitcoin = data.Price
-      console.log("price");
-      console.log(priceBitcoin);
 
-      let volumeBitcoin = data.Volume
-      console.log("volume");
-      console.log(volumeBitcoin);
+        // Clear medadata
+        d3.select("#sample-crypto").html("");
 
-      let percent_changeBitcoin = data.Percent_change
-      console.log("percent_change");
-      console.log(percent_changeBitcoin);
+        // Find average price, volume, high, and low values with 0 decimals
+        let averagePrice = d3.mean(PriceList).toFixed(0);
+        let averageVolume = d3.mean(VolumeList).toFixed(0);
+        let averageHigh = d3.mean(HighList).toFixed(0);
+        let averageLow = d3.mean(LowList).toFixed(0);
+    
 
-      let dateBitcoin = data.Date
-      console.log("date");
-      console.log(dateBitcoin);
+        // Input information in info box under div "sample-crypto"
+        d3.select("#sample-crypto").append("h5").text("Average Price: $" + averagePrice);
+        d3.select("#sample-crypto").append("h5").text("Average High Price: $" + averageHigh);
+        d3.select("#sample-crypto").append("h5").text("Average Low Price: $" + averageLow);
+        d3.select("#sample-crypto").append("h5").text("Average Volume: " + averageVolume);
 
-      plotData = [
-      {
-      y: priceBitcoin.map(priceBitcoin => `Price ${priceBitcoin}`),
-      x: dateBitcoin,
-      // text: otu_labels.slice(0, 10).reverse(),
-      type: "scatter",
-      // orientation: "h",
-      }
-      ];
-        
-      plotLayout = {
-      title: "Price at Different Timepoints",
-      // margin: { t: 30, l: 150 }
-      };
-              
-      Plotly.newPlot("myDiv", plotData, plotLayout);
     });
-  }
-        
-        
-      
-      // samples = data.samples
-      //   console.log("samples");
-      //   console.log(samples);
 
-      //   resultArray = samples.filter(sampleObj => sampleObj.id == name);
-      //   console.log("resultArray");
-      //   console.log(resultArray);
+};
 
-      //   result = resultArray[0];
 
-      //   otu_ids = result.otu_ids;
-      //   otu_labels = result.otu_labels;
-      //   sample_values = result.sample_values;
+// function that initializes the dashboard at start up
+function initialize() {
 
-//         // Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
-//         // Use sample_values as the values for the bar chart.
-//         // Use otu_ids as the labels for the bar chart.
-//         // Use otu_labels as the hovertext for the chart.
-        
-//         barData = [
-//             {
-//               y: otu_ids.slice(0, 10).map(otuID => `OTU ${otuID}`).reverse(),
-//               x: sample_values.slice(0, 10).reverse(),
-//               text: otu_labels.slice(0, 10).reverse(),
-//               type: "bar",
-//               orientation: "h",
-//             }
-//           ];
+    // access the dropdown selector from the index.html file
+    let select = d3.select("#selDataset");
 
-//           barLayout = {
-//             title: "Top 10 Bacteria Cultures Found",
-//             margin: { t: 30, l: 150 }
-//           };
-      
-//           Plotly.newPlot("bar", barData, barLayout);
+    // use d3.json in order to get the sample names and populate the drop-down selector
+    d3.csv(csvFile).then((data) => {
 
-//           //   Create a bubble chart that displays each sample.
-            
-//           bubbleLayout = {
-//             title: "Bacteria Cultures Per Sample",
-//             margin: { t: 0 },
-//             hovermode: "closest",
-//             xaxis: { title: "OTU ID" },
-//             margin: { t: 30 }
-//           };
 
-//           //   Use otu_ids for the x values.
-//           //   Use sample_values for the y values.
-//           //   Use sample_values for the marker size.
-//           //   Use otu_ids for the marker colors.
-//           //   Use otu_labels for the text values
+        // Create empty lists to hold all types of currency
+        let bitcoinList = [];
+        let ethereumList = [];
+        let tetherList = [];
+    
+        // Loop through all rows to pupulate lists created above
+        for (let i =0; i < data.length; i++) {
+            let dataResult = data[i];
+    
+            // Loop through all rows to populate list created above
+            if (dataResult.Currency_Type == "Bitcoin") {
+                bitcoinList.push(dataResult.Currency_Type);
+            } else if (dataResult.Currency_Type == "Ethereum") {
+                ethereumList.push(dataResult.Currency_Type);
+            } else if (dataResult.Currency_Type == "Tether") {
+                tetherList.push(dataResult.Currency_Type);
+            }
+    
+        };
 
-//           bubbleData = [
-//             {
-//               x: otu_ids,
-//               y: sample_values,
-//               text: otu_labels,
-//               mode: "markers",
-//               marker: {
-//                 size: sample_values,
-//                 color: otu_ids,
-//                 colorscale: "Earth"
-//               }
-//             }
-//           ];
-      
-//           Plotly.newPlot("bubble", bubbleData, bubbleLayout);
-      
-//     });
-// }
+        // Create a list of the 3 different currency types
+        let allLists = [bitcoinList[0], ethereumList[0], tetherList[0]];
 
-// // Update all the plots when a new sample is selected.
+        allLists.forEach((currency) => {
+            select.append("option")
+                .text(currency)
+                .property("value", currency);
+        });
 
-function optionChanged(priceBitcoin) {
-    // buildCharts(sampleID);
-    cryptoData(priceBitcoin);
-  }
+        // when initialized, pass in the information for the first sample
+        // call the function to build the initial info box
+        infoBox(bitcoinList[0]);
+
+        // call the function to build the initial bar chart
+        buildChart(bitcoinList[0]);
+
+    });
+
+};
+   
+
+// // function that updates the dashboard
+function optionChanged(item)
+{
+     // call the function to build the info box
+     infoBox(item);
+
+
+// call the function to build the line chart
+    buildChart(item);
+
+};
+
+// call the initialize function
+initialize();
