@@ -38,10 +38,11 @@ from the three data sets we are going to find:
 3.	Use the visualized data to determine if an investor would have gained profit between two time points
 
 Project 3 file folder contains the following:
-   "data_etl.ipynb" - extract, transform and load data;  
-   "app.py" - Python file to import flask, which launches "index.html";  
-   "templates" folder - contains "index.html";  and  
-   "static" folder - two folders:
-        "Data" folder - csv files;     
-        "js" folder - "app.js" file.
+
+   - "data_etl.ipynb" - extract, transform and load data;
+   - "app.py" - Python file to import flask, which launches "index.html";
+   - "templates" folder - contains "index.html";  and 
+   - "static" folder - contains two folders:
+      1. "Data" folder - csv files;
+      2.  "js" folder - "app.js" file.
 
