@@ -46,5 +46,7 @@ Project 3 file folder contains the following:
       1. "Data" folder - csv files;
       2. "js" folder - "app.js" file.
 
-The csv files were tranformed and merged using Pandas. Flask API will launch the website by running "app.py" that will call the file "index.html" through the render_template command. The website content was created using d3.js, plotly for the graphs and the javascript file "app.js." 
+The csv files were tranformed and merged using Pandas.
+Flask API will launch the website by running "app.py" that will call the file "index.html" through the render_template command. 
+The website content was created using d3.js, plotly for the graphs and the javascript file "app.js." 
 
