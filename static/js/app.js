@@ -1,5 +1,7 @@
+console.log("app.js")
+
 // Set csv file path
-let csvFile = "Data/final_data.csv";
+let csvFile = "/static/Data/final_data.csv";
 
 // Read in the data
 d3.csv(csvFile).then(function(data){
@@ -155,7 +157,7 @@ function initialize() {
 };
    
 
-// // function that updates the dashboard
+// function that updates the dashboard
 function optionChanged(item)
 {
      // call the function to build the info box

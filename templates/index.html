@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Crypto Currency Visualisations</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 jumbotron text-center">
+        <h1>Crypto Currency Dashboard</h1>
+        <p>Currency data below is from <strong>2017/04/14</strong> to <strong>2021/08/24</strong></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="well">
+          <h5>Crypto Currency Type</h5>
+          <select id="selDataset" onchange="optionChanged(this.value)"></select>
+        </div>        
+        <br>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Currency Info</h3>
+          </div>
+          <div id="sample-crypto" class="panel-body"></div>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <div id="line"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="/static/js/app.js"></script>
+  
+</body>
+
+</html>
