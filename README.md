@@ -41,7 +41,7 @@ Project 3 file folder contains the following:
    "data_etl.ipynb" - extract, transform and load data;  
    "app.py" - Python file to import flask, which launches "index.html";  
    "templates" folder - contains "index.html";  and  
-   "static" folder - two folders: 
-        "Data" folder - csv files,     
+   "static" folder - two folders: ;
+        "Data" folder - csv files;     
         "js" folder - "app.js" file.
 
